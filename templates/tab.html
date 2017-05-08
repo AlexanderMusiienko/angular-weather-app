@@ -1,14 +1,19 @@
 <div class="container">
+  <!--TODO good practice: use classes for styling. ids - or omit, or use only for JS bindings  -->
   <div id="datetime">
+    <!--TODO one-time bindings?-->
     <h1>{{ $ctrl.date.raw | date:'hh : mm : ss' }}</h1>
     <h2>{{ $ctrl.date.raw | date:'EEEE, MMMM yyyy' }}</h2>
   </div>
   <div id="forecast">
     <ul class="row list-unstyled">
+      <!--TODO always use track by in ngRepeat -->
       <li ng-repeat="day in $ctrl.weather.forecast.forecastday" class="col-md-3">
+        <!--TODO  you can use $first here - https://docs.angularjs.org/api/ng/directive/ngRepeat   -->
         <div ng-class="{today: $index == 0}">
           <img class="{{ ::day.icon }}" ng-src="{{ ::day.icon_url }}" />
           <h3>{{ day.high.celsius }}</h3>
+          <!--TODO you should use css instead of inline styles -->
           <p style="font-size: 10px">{{ day.date.tz_long }}</p>
           <h4 ng-if="$index == 0">Now</h4>
           <h4 ng-if="$index != 0">{{ day.date.weekday }}</h4>

@@ -17,6 +17,9 @@ angular.module('myApp')
       // Update function
       let updateTime = () => {
         this.date.raw = new Date();
+        // TODO move update time to constants
+        // TODO cancel timer on scope destroy - there is common rule for timers/intervals/event bindings:
+        // TODO "For each subscribe you need have unsibscribe"
         $timeout(updateTime, 1000);
       };
 
@@ -30,14 +33,17 @@ angular.module('myApp')
         })
     }
   })
+  // TODO  Same, Capital case for constructor
   .provider('Weather', function() {
     let apiKey = "";
 
     this.setApiKey = key => {
+      // TODO with the following approach you cannot remove apiKey
       if (key) this.apiKey = key;
     };
 
     this.getUrl = function(type, ext) {
+      // TODO if you use `let` - then you can use Template Literals too
       return "http://api.wunderground.com/api/" +
         this.apiKey + "/" + type + "/q/" +
         ext + '.json';
@@ -47,6 +53,7 @@ angular.module('myApp')
       let self = this;
       return {
         getWeatherForecast: (city) => {
+          // TODO you do not need additional defer variable here, `return $http...` will be enough
           let d = $q.defer();
           $http({
             method: 'GET',
@@ -75,5 +82,7 @@ angular.module('myApp')
     }
   })
   .config(function(WeatherProvider) {
+    // TODO move API KEY to config/ENV variable
+    // TODO  just an option - you can use angular.constant/.value for api key, this will allows you replace  Weather provider with factory
     WeatherProvider.setApiKey('f51543211efa5f38');
   });
