@@ -2,7 +2,8 @@ angular.module('myApp')
   .component('settingsComponent', {
     templateUrl: './templates/settings.html',
     controller: ($scope, UserService, Weather) => {
-      $scope.user = UserService.user;
+      // TODO you assign user by reference - this means that any change of $scope.user will affect on UserService.user too
+    $scope.user = UserService.user;
 
       $scope.save = () => {
         UserService.save();
@@ -11,6 +12,7 @@ angular.module('myApp')
       $scope.fetchCities = Weather.getCityDetails;
     }
   })
+  // TODO CapitalCase in JS means constructor. w/o  exceptions
   .factory('UserService', () => {
     let defaults = {
       location: '30/Kiev'
@@ -19,6 +21,7 @@ angular.module('myApp')
     let service = {
       user: {},
       save: () => {
+        // TODO MDN recommendation: use methods instead of getters/setters - https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API/Using_the_Web_Storage_API  
         sessionStorage.presently = angular.toJson(service.user);
       },
       restore: () => {

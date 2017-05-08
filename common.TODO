@@ -1,0 +1,3 @@
+ ☐ move dependenices to package json
+ ☐ keep all entities ( `module`, `controller`, `directive`) in separate files - e.g. https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md#single-responsibility
+ ☐
